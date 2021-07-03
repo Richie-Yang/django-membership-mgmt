@@ -22,6 +22,7 @@ class QuestionAdmin(admin.ModelAdmin):
 class VisitAdmin(admin.ModelAdmin):
     list_display = ('id', 'times')
     fieldsets = [
+        (None, {'fields': ['id']}),
         (None, {'fields': ['times']}),
     ]
 
