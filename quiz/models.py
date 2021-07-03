@@ -26,3 +26,8 @@ class Six(models.Model):
     range_end = models.IntegerField(default=0)
     grade = models.CharField(max_length=200)
     photo = models.ImageField(upload_to='grade_pictures', default="")
+
+
+class Visit(models.Model):
+    times = models.IntegerField(default=0)
+

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Question, Six
+from .models import Question, Six, Visit
 
 # Create your views here.
 
@@ -40,3 +40,13 @@ def result(request, total):
         else:
             pass
     return render(request, 'result.html', locals())
+
+
+def visitor_count(request):
+    visit_model = Visit.objects.get(pk=1)
+    if 'quiz' not in request.session:
+        request.session['quiz'] = True
+        visit_model += 1
+    visit_model.save()
+    context = {'visit_template': visit_model.times}
+    return  render(request, 'visitor_count.html', context)
