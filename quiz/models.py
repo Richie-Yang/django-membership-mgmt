@@ -31,3 +31,6 @@ class Six(models.Model):
 class Visit(models.Model):
     times = models.IntegerField(default=0)
 
+    def __str__(self):
+        return self.times
+

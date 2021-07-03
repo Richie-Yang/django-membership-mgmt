@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Question, Choice
+from .models import Question, Choice, Visit
 
 
 class ChoiceInline(admin.StackedInline):
@@ -19,4 +19,15 @@ class QuestionAdmin(admin.ModelAdmin):
     inlines = [ChoiceInline]
 
 
+class VisitAdmin(admin.ModelAdmin):
+    list_display = ('id', 'times')
+    fieldsets = [
+        (None, {'fields': ['times']}),
+    ]
+
+
 admin.site.register(Question, QuestionAdmin)
+admin.site.register(Visit, VisitAdmin)
+
+
+
