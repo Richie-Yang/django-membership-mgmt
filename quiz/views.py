@@ -46,7 +46,7 @@ def visitor_count(request):
     visit_model = Visit.objects.get(pk=1)
     if 'quiz' not in request.session:
         request.session['quiz'] = True
-        visit_model += 1
+        visit_model.times += 1
     visit_model.save()
     context = {'visit_template': visit_model.times}
     return render(request, 'visitor_count.html', context)
