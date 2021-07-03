@@ -49,4 +49,4 @@ def visitor_count(request):
         visit_model += 1
     visit_model.save()
     context = {'visit_template': visit_model.times}
-    return  render(request, 'visitor_count.html', context)
+    return render(request, 'visitor_count.html', context)
