@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>The Easiest Harry Potter Quiz Ever</title>
+</head>
+<body>
+<div id="set" style="padding-top: 50px;">
+~The Easiest Harry Potter Quiz Ever~
+</div>
+<form action="" method="post">
+<div style="padding-top: 60px;">
+    {% csrf_token %}
+    {% for q in question %}
+    <table>
+        <tr>
+            <td>{{ forloop.counter }}.{{q.question_text}}</td>
+        </tr>
+
+        {% for c in q.choice_set.all %}
+            <tr>
+            <td><input type="radio" name="{{ q.id }}" id="c-{{ forloop.counter }}"
+                       required>{{ c.choice_text }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endfor %}
+    <hr width="50%" align="left">
+
+    <input type="submit" value="submit"/>
+</div>
+</form>
+</body>
+</html>
