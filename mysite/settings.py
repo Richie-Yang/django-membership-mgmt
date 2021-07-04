@@ -173,8 +173,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Activate Django-Heroku.
 django_heroku.settings(locals())
 
-# url to redirect after successfull login
+# url to redirect after successful login
 LOGIN_REDIRECT_URL = '/quiz/login'
 LOGIN_URL = '/quiz/login/'
-LOGOUT_REDIRECT_URL = '/quiz/logout'
-LOGOUT_URL = '/quiz/logout/'
+LOGOUT_REDIRECT_URL = '/quiz/login'
+LOGOUT_URL = '/quiz/login/'

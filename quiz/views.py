@@ -91,11 +91,16 @@ def post_login(request):
         user = auth.authenticate(username=username, password=password)
         if user and user.is_staff is False:
             auth.login(request, user)
-            return redirect('/login/')
+            return redirect('/login')
         elif user and user.is_staff is True:
             auth.login(request, user)
-            return redirect('/quiz/')
+            return redirect('/quiz/play')
         else:
-            return redirect('/login/')
+            return redirect('/quiz/login')
     else:
         return render(request, 'login.html', locals())
+
+
+def logout(request):
+    auth.logout(request)
+    return redirect('/quiz/login')
