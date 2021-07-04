@@ -1,6 +1,10 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Question, Six, Visit
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+from django.contrib import auth
+from .models import Question, Six, Visit, Register
+from .forms import RegisterForm
 
 # Create your views here.
 
@@ -9,6 +13,7 @@ def index(request):
     return HttpResponse("Hello, world. You're at the quiz index.")
 
 
+@login_required()
 def play(request):
     question = Question.objects.all()
     # 當測驗者提出表單(submit)
@@ -50,3 +55,47 @@ def visitor_count(request):
     visit_model.save()
     context = {'visit_template': visit_model.times}
     return render(request, 'visitor_count.html', context)
+
+
+def register_create_view(request):
+    form = RegisterForm(request.POST or None)
+    if form.is_valid():
+        Register.objects.create(form.cleaned_data)
+        form = RegisterForm
+    context = {
+        'form': form
+    }
+    return render(request, 'register_create.html', context)
+
+
+def register(request):
+    # 當使用者提交資料
+    if request.method == 'POST':
+        # 內建的form，model為User。
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/quiz')
+        else:
+            return render(request, 'register.html', {'form': form})
+    else:
+        form = UserCreationForm()
+        context = {'form': form}
+        return render(request, 'register.html', context)
+
+
+def post_login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = auth.authenticate(username=username, password=password)
+        if user and user.is_staff is False:
+            auth.login(request, user)
+            return redirect('/login/')
+        elif user and user.is_staff is True:
+            auth.login(request, user)
+            return redirect('/quiz/')
+        else:
+            return redirect('/login/')
+    else:
+        return render(request, 'login.html', locals())

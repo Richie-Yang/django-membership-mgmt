@@ -27,7 +27,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'django-insecure-h14^1n59e7@&jvs9*gxk7!bfx&d#s-g3nv2=rv&6bs)7$q!q)='
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 
@@ -172,3 +172,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
+
+# url to redirect after successfull login
+LOGIN_REDIRECT_URL = '/quiz/login'
+LOGIN_URL = '/quiz/login/'
+LOGOUT_REDIRECT_URL = '/quiz/logout'
+LOGOUT_URL = '/quiz/logout/'

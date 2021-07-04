@@ -34,3 +34,8 @@ class Visit(models.Model):
     def __str__(self):
         return str(self.times)
 
+
+class Register(models.Model):
+    username = models.CharField(max_length=20)
+    password = models.CharField(max_length=20)
+
